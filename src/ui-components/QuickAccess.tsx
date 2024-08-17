@@ -41,7 +41,10 @@ const QuickAccess = () => {
     function handleVolume(e: React.ChangeEvent<HTMLInputElement>): void {
         const { value } = e.target;
         const volume = Number(value) / MAX;
-        oceanRef.current.volume = volume;
+        if(oceanRef.current){
+            oceanRef.current.volume = volume;
+        }
+        
     }
 
     return (

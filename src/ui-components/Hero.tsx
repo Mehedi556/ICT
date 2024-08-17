@@ -11,11 +11,14 @@ import { EffectFade, Autoplay, Pagination, Navigation } from 'swiper/modules';
 
 
 const Hero = () => {
-    const progressCircle = useRef(null);
-  const progressContent = useRef(null);
-  const onAutoplayTimeLeft = (s: any, time: any, progress: any) => {
-    progressCircle.current.style.setProperty('--progress', 1 - progress);
-    progressContent.current.textContent = `${Math.ceil(time / 1000)}s`;
+    const progressCircle = useRef<SVGSVGElement | null>(null);
+    const progressContent = useRef<HTMLSpanElement | null>(null);
+  const onAutoplayTimeLeft = (time: any, progress: any) => {
+    if (progressCircle.current && progressContent.current) {
+      progressCircle.current.style.setProperty('--progress', `${1 - progress}`);
+      progressContent.current.textContent = `${Math.ceil(time / 1000)}s`;
+  }
+    
   };
   return (
     <div>
@@ -45,12 +48,12 @@ const Hero = () => {
             <SwiperSlide>
               <img className="object-cover object-center h-[200px] sm:h-[300px] md:h-[400px] w-[100%]" src={banner3} alt="" />
             </SwiperSlide>
-            <div className="autoplay-progress" slot="container-end">
+            {/* <div className="autoplay-progress" slot="container-end">
               <svg viewBox="0 0 48 48" ref={progressCircle}>
                 <circle cx="24" cy="24" r="20"></circle>
               </svg>
               <span ref={progressContent}></span>
-            </div>
+            </div> */}
           </Swiper>
         </div>
       </div>
